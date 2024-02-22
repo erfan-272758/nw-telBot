@@ -1,0 +1,23 @@
+version: '3'
+services:
+  telbot:
+    image: telbot:1.0.0
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: telbot
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+        delay: 1s
+        max_attempts: 10
+    networks:
+      webnet:
+        aliases:
+          - telbot
+
+networks:
+  webnet:
+    external: true
+    name: webnet
